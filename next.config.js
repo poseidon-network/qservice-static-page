@@ -1,7 +1,6 @@
 const webpack = require('webpack');
-const withTypescript = require('@zeit/next-typescript');
 
-module.exports = withTypescript({
+module.exports = {
   exportPathMap: () => ({
     '/': { page: '/' },
   }),
@@ -18,4 +17,4 @@ module.exports = withTypescript({
         ? process.env.LOCALE_SUBPATHS
         : 'none',
   },
-});
+};

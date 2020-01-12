@@ -8,17 +8,14 @@ interface IProps {
   changeLanguage: (lang: string) => () => void;
 }
 
-const MobileMenu = ({ changeLanguage, isOpened, t }: IProps & ITrans) => {
-  const [currentPath, setCurrentPath] = useState<string>('');
-  const [currentLang, setLang] = useState<string>(i18n.language);
+const MobileMenu = ({ isOpened }: IProps & ITrans) => {
+  const [, setCurrentPath] = useState<string>('');
+  const [, setLang] = useState<string>(i18n.language);
 
   useEffect(() => {
     setCurrentPath(window.location.pathname.replace(/\//g, ''));
     setLang(i18n.language);
   }, [i18n.language]);
-
-  const itemActiveClass = (path: string) =>
-    currentPath === path ? 'is-active' : '';
 
   return (
     <nav

@@ -8,7 +8,7 @@ import Menu from './Menu';
 import MobileMenu from './MobileMenu';
 
 interface IProps extends ITrans {
-  user?: IUser;
+  user?: TUser;
   bgColor?: string;
   logout?: () => void;
 }

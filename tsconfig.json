@@ -4,8 +4,12 @@
     "target": "esnext",
     "baseUrl": ".",
     "jsx": "preserve",
-    "lib": ["dom", "esnext", "es6"],
-    "module": "commonjs",
+    "lib": [
+      "dom",
+      "esnext",
+      "es6"
+    ],
+    "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
     "noUnusedLocals": true,
@@ -13,9 +17,22 @@
     "preserveConstEnums": true,
     "removeComments": false,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
   "exlcude": [
     "node_modules/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
   ]
 }
