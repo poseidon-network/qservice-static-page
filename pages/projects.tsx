@@ -9,6 +9,7 @@ import Content from '../components/Content';
 import H3 from '../components/H3';
 import Button from '../components/Button';
 import { useUserState, useTokenState } from '../hooks/usePersistedState';
+import { getRepoENSName, getDeployedURL } from '../utils';
 
 const Project = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -16,6 +17,7 @@ const Project = () => {
   // @ts-ignore
   const [user, setUser] = useUserState<TUser>({});
   const [repositories, setRepositories] = useState<any>([]);
+  const [connectedRepo, setConnectedRepo] = useState<any>(null);
 
   useEffect(() => {
     const getAccessToken = async (code: string) => {
@@ -61,20 +63,31 @@ const Project = () => {
   }, [token]);
 
   const onConnect = async (repo: any) => {
-    const { data: { hash } } = await axios.post(`${API_ROOT}/repo`, {
-      username: user.login,
-      projectName: repo.name,
-    });
-    console.log(hash);
-    const ensName = `${repo.name.toLowerCase()}.${user.login.toLowerCase()}.qqq.eth`;
-    await axios.post(`${API_ROOT}/ens`, {
-      ensName,
-    });
+    setLoading(true);
+    try {
+      const { data: { hash } } = await axios.post(`${API_ROOT}/repo`, {
+        username: user.login,
+        projectName: repo.name,
+      });
+      const ensName = getRepoENSName(user, repo);
 
-    await axios.put(`${API_ROOT}/ens`, {
-      ensName,
-      content: hash,
-    });
+      await axios.post(`${API_ROOT}/ens`, {
+        ensName: `${user.login.toLowerCase()}.qqq.eth`,
+      });
+
+      await axios.post(`${API_ROOT}/ens`, {
+        ensName,
+      });
+
+      await axios.put(`${API_ROOT}/ens`, {
+        ensName,
+        content: hash,
+      });
+      setConnectedRepo(repo);
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);
   };
 
   return (
@@ -83,31 +96,41 @@ const Project = () => {
       title="Poseidon Network | QService"
     >
       <Content style="padding-top: 59px; min-height: 550px;">
-        <H3 color={styles.primaryColor}>All Repositories</H3>
-
-        { loading && <Content style="align-items: center; justify-items: center; margin-top: 150px;">
-            <BeatLoader
-              size={15}
-              color={styles.primaryColor}
-              loading={loading}
-            />
-          </Content>
-        }
-
-        <div className="repos">
-          {
-            repositories.map((repo: any) => (
-              <div key={repo.id} className="repo">
-                <h5 className="repo-title">{ repo.name }</h5>
-                <Button
-                  onClick={() => onConnect(repo)}
-                  style="margin-top: 100px;"
-                  title="Connect"
-                />
+        { connectedRepo ?
+            <div>
+              <Button style="width: 100px; margin-bottom: 50px;" title="Back" onClick={() => setConnectedRepo(null)} />
+              <H3 style="margin-bottom: 20px;">Repository: { connectedRepo.name }</H3>
+              <H3>URL: <a href={getDeployedURL(user, connectedRepo)}>{ getDeployedURL(user, connectedRepo) }</a></H3>
+            </div>
+          :
+          <>
+            <H3 color={styles.primaryColor}>All Repositories</H3>
+            { loading ?
+              <Content style="align-items: center; justify-items: center; margin-top: 150px;">
+                  <BeatLoader
+                    size={15}
+                    color={styles.primaryColor}
+                    loading={loading}
+                  />
+                </Content>
+              :
+              <div className="repos">
+                {
+                  repositories.map((repo: any) => (
+                    <div key={repo.id} className="repo">
+                      <h5 className="repo-title">{ repo.name }</h5>
+                      <Button
+                        onClick={() => onConnect(repo)}
+                        style="margin-top: 100px;"
+                        title="Connect"
+                      />
+                    </div>
+                  ))
+                }
               </div>
-            ))
-          }
-        </div>
+            }
+          </>
+        }
       </Content>
 
       <div className="dark-bg" />
