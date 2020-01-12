@@ -3,6 +3,7 @@ const webpack = require('webpack');
 module.exports = {
   exportPathMap: () => ({
     '/': { page: '/' },
+    '/projects': { page: '/projects', query: { code: '' } },
   }),
   webpack(config) {
     config.plugins.push(
