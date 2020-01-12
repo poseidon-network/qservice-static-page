@@ -3,13 +3,12 @@ import Head from 'next/head';
 
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
-import { logout } from '../utils/auth';
 import { styles } from '../constants';
 
 interface IProps {
   title: string;
   children: React.ReactNode;
-  user?: IUser;
+  user?: TUser;
   navColor?: string;
 }
 
@@ -22,7 +21,6 @@ const Page: React.FC<IProps> = ({ title, navColor, children, user }) => {
       </Head>
       <Nav
         user={user}
-        logout={logout}
         bgColor={navColor}
       />
       {children}
