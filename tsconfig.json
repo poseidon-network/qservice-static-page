@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "target": "esnext",
+    "baseUrl": ".",
+    "jsx": "preserve",
+    "lib": ["dom", "esnext", "es6"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveConstEnums": true,
+    "removeComments": false,
+    "skipLibCheck": true,
+    "strict": true
+  },
+  "exlcude": [
+    "node_modules/*"
+  ]
+}

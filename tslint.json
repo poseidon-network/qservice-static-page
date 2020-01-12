@@ -1,0 +1,13 @@
+{
+  "extends": "tslint-config-airbnb",
+  "rules": {
+    "variable-name": [false],
+    "import-name": false,
+    "align": [
+      true,
+      "statements"
+    ],
+    "max-line-length": false,
+    "semicolon": [true, "always", "ignore-bound-class-methods"]
+  }
+}
