@@ -7,9 +7,11 @@ import nextI18next from './i18n';
 
 const port = process.env.PORT || 3000;
 const app = next({ dev: process.env.NODE_ENV !== 'production' });
+// @ts-ignore
 const handle = app.getRequestHandler();
 
 (async () => {
+  // @ts-ignore
   await app.prepare();
   const server = express();
 
