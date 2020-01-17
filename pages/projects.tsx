@@ -48,7 +48,7 @@ const Project = () => {
     };
 
     const getRepos = async () => {
-      const { data } = await axios.get('https://api.github.com/user/repos', {
+      const { data } = await axios.get('https://api.github.com/user/repos?sort=created', {
         headers: {
           Authorization: ` token ${token}`,
         },
