@@ -39,6 +39,7 @@
     "@types/react-dom": "^16.0.10",
     "@types/styled-jsx": "^2.2.7",
     "@types/use-persisted-state": "^0.3.0",
+    "cz-conventional-changelog": "3.0.2",
     "gh-pages": "^2.0.1",
     "husky": "^2.3.0",
     "lint-staged": "^8.1.7",
@@ -65,5 +66,10 @@
     "singleQuote": true,
     "jsxSingleQuote": false,
     "trailingComma": "all"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
