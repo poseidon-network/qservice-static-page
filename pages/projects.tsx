@@ -66,13 +66,13 @@ const Project = () => {
     setLoading(true);
     try {
       const { data: { hash } } = await axios.post(`${API_ROOT}/repo`, {
-        username: user.login,
+        username: repo.owner.login,
         projectName: repo.name,
       });
-      const ensName = getRepoENSName(user, repo);
+      const ensName = getRepoENSName(repo);
 
       await axios.post(`${API_ROOT}/ens`, {
-        ensName: `${user.login.toLowerCase()}.qqq.eth`,
+        ensName: `${repo.owner.login.toLowerCase()}.qqq.eth`,
       });
 
       await axios.post(`${API_ROOT}/ens`, {
@@ -118,7 +118,7 @@ const Project = () => {
                 {
                   repositories.map((repo: any) => (
                     <div key={repo.id} className="repo">
-                      <h5 className="repo-title">{ repo.name }</h5>
+                      <h5 className="repo-title">{ repo.full_name }</h5>
                       <Button
                         onClick={() => onConnect(repo)}
                         style="margin-top: 100px;"
@@ -168,6 +168,7 @@ const Project = () => {
           line-height: normal;
           letter-spacing: normal;
           color: ${styles.primaryColor};
+          word-break: break-all;
         }
       `}</style>
     </Page>
