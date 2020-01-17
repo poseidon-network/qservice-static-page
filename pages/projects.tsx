@@ -31,7 +31,7 @@ const Project = () => {
     const code = searchParams.get('code');
     if (code) {
       getAccessToken(code);
-    } else {
+    } else if (!token) {
       window.location.href = '/';
     }
   }, []);
@@ -95,7 +95,7 @@ const Project = () => {
       navColor={styles.dark}
       title="Poseidon Network | QService"
     >
-      <Content style="padding-top: 59px; min-height: 550px;">
+      <Content style="align-items: center; padding-top: 59px; min-height: 550px;">
         { connectedRepo ?
             <div>
               <Button style="width: 100px; margin-bottom: 50px;" title="Back" onClick={() => setConnectedRepo(null)} />
