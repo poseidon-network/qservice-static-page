@@ -8,6 +8,7 @@ module.exports = {
   webpack(config) {
     config.plugins.push(
       new webpack.EnvironmentPlugin({
+        API_ROOT: process.env.API_ROOT,
       }),
     );
     return config;
