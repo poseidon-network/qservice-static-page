@@ -100,7 +100,7 @@ const Project = () => {
             <div>
               <Button style="width: 100px; margin-bottom: 50px;" title="Back" onClick={() => setConnectedRepo(null)} />
               <H3 style="margin-bottom: 20px;">Repository: { connectedRepo.name }</H3>
-              <H3>URL: <a href={getDeployedURL(user, connectedRepo)}>{ getDeployedURL(user, connectedRepo) }</a></H3>
+              <H3>URL: <a href={getDeployedURL(connectedRepo)}>{ getDeployedURL(connectedRepo) }</a></H3>
             </div>
           :
           <>
